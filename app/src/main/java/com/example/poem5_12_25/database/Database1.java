@@ -20,7 +20,7 @@ import com.example.poem5_12_25.entity.User;
  * @Date 2020/12/23 12:41
  * @Created by Huan
  */
-@Database(version = 1,entities = {Poem.class, FavorityPoem.class, User.class})
+@Database(version = 1,entities = {Poem.class, FavorityPoem.class, User.class},exportSchema = false)
 public abstract class Database1 extends RoomDatabase {
 
     private static Database1 instance;
@@ -35,7 +35,7 @@ public abstract class Database1 extends RoomDatabase {
     }
     public static Database1 getInstance(Context context){
         if (instance==null){
-            instance = Room.databaseBuilder(context, Database1.class,"test_user").build();
+            instance = Room.databaseBuilder(context, Database1.class,"test_user").allowMainThreadQueries().build();
             return instance;
         }
         return instance;

@@ -5,7 +5,9 @@ import android.util.Log;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
+import com.example.poem5_12_25.conveter.ArrayListConveter;
 import com.example.poem5_12_25.pojo.PoemPojo;
 
 import org.json.JSONArray;
@@ -23,6 +25,7 @@ import java.util.stream.Collectors;
  * @Created by Huan
  */
 @Entity
+@TypeConverters(ArrayListConveter.class)
 public class Poem {
     private static final String TAG = "Poem";
     @PrimaryKey(autoGenerate = false)
@@ -137,6 +140,12 @@ public class Poem {
             }
         }
     }
+
+    public void setContent(ArrayList<String> arrayList) {
+        this.content.clear();
+        this.content = arrayList;
+    }
+
 
     public void setContent(String csvContent) {
         String[] contentList = csvContent.split(",");

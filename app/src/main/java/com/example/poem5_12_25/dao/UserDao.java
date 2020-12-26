@@ -36,10 +36,10 @@ public interface UserDao {
     public User selectUserByUsername(String username);
 
     @Query("delete from user where id = :id")
-    public User DeleteUserById(long id);
+    public int DeleteUserById(long id);
 
     @Query("delete from user where username = :username")
-    public User DeleteUserByUsername(String username);
+    public int DeleteUserByUsername(String username);
 
     @Query("delete from user")
     public int deleteAllUser();

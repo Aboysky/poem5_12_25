@@ -1,6 +1,7 @@
 package com.example.poem5_12_25.entity;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 /**
@@ -33,6 +34,7 @@ public class User {
     public User() {
     }
 
+    @Ignore
     public User(long id, String username, String password) {
         this.id = id;
         this.username = username;

@@ -28,12 +28,6 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/menu_check_updates"
-        android:orderInCategory="100"
-        android:title="@string/check_updates"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/menu_about"
         android:orderInCategory="100"
         android:title="@string/about"

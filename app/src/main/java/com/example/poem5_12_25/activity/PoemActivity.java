@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import com.example.poem5_12_25.dao.FavorityPoemDao;
 import com.example.poem5_12_25.database.Database1;
 import com.example.poem5_12_25.entity.FavorityPoem;
 import com.example.poem5_12_25.entity.Poem;
+import com.example.poem5_12_25.menu.MainMenu;
 import com.example.poem5_12_25.pojo.PoemPojo;
 import com.example.poem5_12_25.utils.http.HttpRequestUtil;
 import com.example.poem5_12_25.utils.http.tool.HttpRequestData;
@@ -126,6 +129,20 @@ public class PoemActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // 设置菜单
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    // 菜单点击事件
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return new MainMenu(this).onOptionsItemSelected(item);
+    }
+
+
 
     /**
      * 设置当前的古诗
@@ -173,6 +190,23 @@ public class PoemActivity extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout, "网络连接失败！", Snackbar.LENGTH_SHORT).show();
         }
     }
+
+
+//    // 加载顶部图片任务
+//    class GetHeaderImageTask extends AsyncTask<Void, Integer, HttpResponseData> {
+//        @Override
+//        protected HttpResponseData doInBackground(Void... voids) {
+//            return HttpRequestUtil.getImage(new HttpRequestData("https://picsum.photos/1080/675?image=957&random&blur"));
+//        }
+//
+//        @Override
+//        protected void onPostExecute(HttpResponseData data) {
+//            super.onPostExecute(data);
+//            if (data.success) {
+//                ivHeader.setImageBitmap(data.bitmap);
+//            }
+//        }
+//    }
 
 
 }

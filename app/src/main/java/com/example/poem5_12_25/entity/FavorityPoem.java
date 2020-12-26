@@ -1,6 +1,7 @@
 package com.example.poem5_12_25.entity;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 /**
@@ -27,6 +28,7 @@ public class FavorityPoem {
     public FavorityPoem() {
     }
 
+    @Ignore
     public FavorityPoem(long pid, long uid) {
         this.pid = pid;
         this.uid = uid;
