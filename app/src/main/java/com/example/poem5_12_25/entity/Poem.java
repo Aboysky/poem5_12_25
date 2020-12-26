@@ -2,6 +2,12 @@ package com.example.poem5_12_25.entity;
 
 import android.os.Build;
 import android.util.Log;
+
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import com.example.poem5_12_25.pojo.PoemPojo;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,16 +22,46 @@ import java.util.stream.Collectors;
  * @Date 2020/12/25 16:30
  * @Created by Huan
  */
+@Entity
 public class Poem {
     private static final String TAG = "Poem";
-
+    @PrimaryKey(autoGenerate = false)
     private long id;
     private String name = "";
     private String author = "";
     private ArrayList<String> content = new ArrayList<>();
+    private String years;
+
+    @Override
+    public String toString() {
+        return "Poem{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", author='" + author + '\'' +
+                ", content=" + Arrays.toString(content.toArray()) +
+                ", years='" + years + '\'' +
+                '}';
+    }
+
+    public String getYears() {
+        return years;
+    }
+
+    public void setYears(String years) {
+        this.years = years;
+    }
 
     public Poem() {
     }
+    public Poem(PoemPojo poemPojo) {
+        this.author = poemPojo.getAuthor();
+        this.id = poemPojo.getId();
+        this.content = new ArrayList<String>(Arrays.asList(poemPojo.getContent().split("\\n")));
+        this.name = poemPojo.getName();
+        this.years = poemPojo.getYears();
+    }
+
+
 
     public Poem(long id, String author, String name, JSONArray contentArray) {
         this.id = id;

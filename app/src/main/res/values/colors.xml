@@ -6,6 +6,8 @@
     <color name="textColorPrimary">#616161</color>
     <color name="viewBackground">@android:color/white</color>
 
+    <color name="color_minefragment_top">#009688</color>
+
     <color name="blue">#3F51B5</color>
     <color name="blue_dark">#303F9F</color>
     <color name="red">#FF4081</color>

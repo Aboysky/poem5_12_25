@@ -10,9 +10,12 @@
     <string name="poem_title">春江花月夜</string>
     <string name="poem_author">张若虚</string>
     <string name="poem_content">
-        春江潮水连海平\n海上明月共潮生\n不知乘月几人归\n落月摇情满江树
+        春江潮水连海平 海上明月共潮生 不知乘月几人归 落月摇情满江树
     </string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="title_activity_favorite">我的收藏</string>
     <string name="title_activity_developer">开发者模式</string>
+    <string name="register_agreement">注册即代表同意《用户协议》(并没有</string>
+    <string name="register">注册</string>
+    <string name="robot_code">请输入4位验证码</string>
 </resources>

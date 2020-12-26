@@ -1,5 +1,6 @@
 package com.example.poem5_12_25.activity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
@@ -16,6 +17,7 @@ import butterknife.ButterKnife;
 import com.example.poem5_12_25.R;
 import com.example.poem5_12_25.cache.LastPoemCache;
 import com.example.poem5_12_25.entity.Poem;
+import com.example.poem5_12_25.pojo.PoemPojo;
 import com.example.poem5_12_25.utils.http.HttpRequestUtil;
 import com.example.poem5_12_25.utils.http.tool.HttpRequestData;
 import com.example.poem5_12_25.utils.http.tool.HttpResponseData;
@@ -28,6 +30,7 @@ import com.jaeger.library.StatusBarUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 public class PoemActivity extends AppCompatActivity {
@@ -72,11 +75,48 @@ public class PoemActivity extends AppCompatActivity {
         ViewCompat.setNestedScrollingEnabled(svContent, true);
         setSupportActionBar(toolbar);
 
-        setCurrentPoem(new Poem(0,
-                getString(R.string.poem_author),
-                getString(R.string.poem_title),
-                getString(R.string.poem_content).replace('\n', ',')
-        ));
+        // 点击刷新按钮诗句
+        fabRefresh.setOnClickListener(view ->
+        {
+            new GetPoemTask().execute(201L);
+            LastPoemCache.setLastPoem(currentPoem);
+        });
+
+        // 打开时显示诗文设置
+        Intent intent = getIntent();
+        if (intent.getBooleanExtra("local", false)) {
+            setCurrentPoem(new Poem(
+                    intent.getIntExtra("id", 0),
+                    intent.getStringExtra("author"),
+                    intent.getStringExtra("title"),
+                    intent.getStringExtra("content")));
+        } else {
+            // 打开自动刷新一首诗
+            Poem lastPoem = LastPoemCache.getLastPoem();
+            if (lastPoem == null)
+                new GetPoemTask().execute(201L);
+            else
+                setCurrentPoem(lastPoem);
+        }
+
+        // 点击收藏按钮
+        fabFavorite.setOnClickListener(v -> {
+//            PoemFavoriteEntityDao poemFavoriteDao = MainApp.getInstance().daoSession.getPoemFavoriteEntityDao();
+//            PoemFavoriteEntity poemFavoriteEntity = new PoemFavoriteEntity(
+//                    currentPoem.getId(),
+//                    currentPoem.getTitle(),
+//                    currentPoem.getAuthor(),
+//                    currentPoem.getContentCsv()
+//            );
+//
+//            if (poemFavoriteDao.load(poemFavoriteEntity.getId()) == null) {
+//                poemFavoriteDao.insert(poemFavoriteEntity);
+//                Snackbar.make(coordinatorLayout, String.format("《%s》已加入收藏夹", tvTitle.getText()), Snackbar.LENGTH_SHORT).show();
+//            } else {
+//                poemFavoriteDao.delete(poemFavoriteEntity);
+//                Snackbar.make(coordinatorLayout, String.format("《%s》已经从收藏夹移除", tvTitle.getText()), Snackbar.LENGTH_SHORT).show();
+//            }
+        });
 
     }
 
@@ -108,29 +148,22 @@ public class PoemActivity extends AppCompatActivity {
     }
 
     /**
-     * 加载刷新古诗
+     * 异步加载刷新古诗
      */
-    class GetPoemTask extends AsyncTask<Void, Integer, HttpResponseData> {
+    class GetPoemTask extends AsyncTask<Long, Integer, PoemPojo> {
 
         @Override
-        protected HttpResponseData doInBackground(Void... voids) {
-            HttpRequestData request = new HttpRequestData("http:localhost:5000/getpoem");
-            return HttpRequestUtil.getData(request);
+        protected PoemPojo doInBackground(Long... longs) {
+            return HttpRequestUtil.getHttpPoem(longs[0]);
         }
 
         @Override
-        protected void onPostExecute(HttpResponseData data) {
+        protected void onPostExecute(PoemPojo data) {
             super.onPostExecute(data);
-            if (data.success) {
-                try {
-                    JSONObject jsonObject = new JSONObject(data.content);
-                    Poem poem = Poem.parseJsonString(jsonObject.getJSONObject("data").toString());
-                    poem.setContent(jsonObject.getJSONObject("data").getJSONArray("content"));
-                    LastPoemCache.setLastPoem(poem);
-                    setCurrentPoem(poem);
-                } catch (JSONException ex) {
-                    Log.e(TAG, ex.getMessage());
-                }
+            System.out.println(data);
+            if (data != null) {
+                Poem poem = new Poem(data);
+                setCurrentPoem(poem);
             } else
                 Snackbar.make(coordinatorLayout, "网络连接失败！", Snackbar.LENGTH_SHORT).show();
         }

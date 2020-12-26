@@ -1,8 +1,14 @@
 package com.example.poem5_12_25.utils.http;
 
 import android.graphics.BitmapFactory;
+import android.provider.ContactsContract;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.example.poem5_12_25.contant.ServerContant;
+import com.example.poem5_12_25.entity.Poem;
+import com.example.poem5_12_25.pojo.PoemPojo;
 import com.example.poem5_12_25.utils.http.tool.HttpRequestData;
 import com.example.poem5_12_25.utils.http.tool.HttpResponseData;
 import com.example.poem5_12_25.utils.http.tool.StreamTool;
@@ -105,30 +111,134 @@ public class HttpRequestUtil {
     }
 
     /**
-     * 加载后端接口数据
-     * @param req_data
-     * @return
+     * 从服务器拿到一首诗并返回PoemPojo对象
+     * @param id 现在显示的诗词id,保证拿到的不和这一首相同
+     * @return Poempoho 封装的Poem
      */
-    public static String gethttpresult(HttpRequestData req_data){
+    public static PoemPojo getHttpPoem(Long id){
+        URL url = null;
         try {
-            URL url=new URL(req_data.url);
-            HttpURLConnection connect=(HttpURLConnection)url.openConnection();
-            InputStream input=connect.getInputStream();
-            BufferedReader in = new BufferedReader(new InputStreamReader(input));
-            String line = null;
-            System.out.println(connect.getResponseCode());
-            StringBuilder sb = new StringBuilder();
-            while ((line = in.readLine()) != null) {
-                sb.append(line);
+            if (id!=null){
+                url = new URL(ServerContant.GET_POEM_URL+"?id="+id.toString());
+            }else {
+                url = new URL(ServerContant.GET_POEM_URL);
             }
 
-            System.out.println(sb.toString());
-            return sb.toString();
+            HttpURLConnection connect=(HttpURLConnection)url.openConnection();
+            connect.setRequestMethod("GET");
+            connect.connect();
+            if (connect.getResponseCode() ==200){
+                InputStream input=connect.getInputStream();
+                BufferedReader in = new BufferedReader(new InputStreamReader(input));
+                String line = null;
+                System.out.println(connect.getResponseCode());
+                StringBuilder sb = new StringBuilder();
+                while ((line = in.readLine()) != null) {
+                    sb.append(line);
+                }
+                return JSON.parseObject(sb.toString(), PoemPojo.class);
+            }
+            return null;
         } catch (Exception e) {
             System.out.println(e.toString());
             return null;
         }
     }
+
+
+    /**
+     * 登录验证请求
+     * @param username 用户名
+     * @param password 密码
+     * @return
+     */
+    public static Boolean login(String username,String password){
+        String param = "{\"username\":\""+username+"\","+"\"password\":\""+password+"\"}";
+        System.out.println(param);
+        PrintWriter out = null;
+        BufferedReader in1 = null;
+        try {
+            URL url = new URL(ServerContant.LOGIN_URL);
+            HttpURLConnection connect=(HttpURLConnection)url.openConnection();
+            setConnHeader(connect,"POST",new HttpRequestData(ServerContant.LOGIN_URL));
+            connect.setDoOutput(true);
+            connect.setDoInput(true);
+            // 获取URLConnection对象对应的输出流
+            out = new PrintWriter(connect.getOutputStream());
+            // 发送请求参数
+            out.print(param);
+            // flush输出流的缓冲
+            out.flush();
+            connect.connect();
+            if (connect.getResponseCode() == 200){
+                InputStream input=connect.getInputStream();
+                BufferedReader in = new BufferedReader(new InputStreamReader(input));
+                String line = null;
+                System.out.println(connect.getResponseCode());
+                StringBuilder sb = new StringBuilder();
+                while ((line = in.readLine()) != null) {
+                    sb.append(line);
+                }
+                System.out.println(sb.toString());
+                JSONObject jsonObject = JSON.parseObject(sb.toString());
+                Integer code = (Integer) jsonObject.get("code");
+                System.out.println("code = "+code);
+                if (code!=null&&code==200){
+                    System.out.println("后端验证成功");
+                    return Boolean.TRUE;
+                }
+                return Boolean.FALSE;
+            }
+            return Boolean.FALSE;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return Boolean.FALSE;
+        }
+    }
+
+    public static Boolean register(String username,String password){
+        String param = "{\"username\":\""+username+"\","+"\"password\":\""+password+"\"}";
+        System.out.println(param);
+        PrintWriter out = null;
+        BufferedReader in1 = null;
+        try {
+            URL url = new URL(ServerContant.REGISTER_URL);
+            HttpURLConnection connect=(HttpURLConnection)url.openConnection();
+            setConnHeader(connect,"POST",new HttpRequestData(ServerContant.LOGIN_URL));
+            connect.setDoOutput(true);
+            connect.setDoInput(true);
+            // 获取URLConnection对象对应的输出流
+            out = new PrintWriter(connect.getOutputStream());
+            // 发送请求参数
+            out.print(param);
+            // flush输出流的缓冲
+            out.flush();
+            connect.connect();
+            if (connect.getResponseCode() == 200){
+                InputStream input=connect.getInputStream();
+                BufferedReader in = new BufferedReader(new InputStreamReader(input));
+                String line = null;
+                System.out.println(connect.getResponseCode());
+                StringBuilder sb = new StringBuilder();
+                while ((line = in.readLine()) != null) {
+                    sb.append(line);
+                }
+                System.out.println(sb.toString());
+                JSONObject jsonObject = JSON.parseObject(sb.toString());
+                Integer code = (Integer) jsonObject.get("code");
+                if (code!=null&&code==200){
+                    return Boolean.TRUE;
+                }
+                return Boolean.FALSE;
+            }
+            return Boolean.FALSE;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return Boolean.FALSE;
+        }
+    }
+
+
 
     public static String getHtml(String path) throws Exception {
         URL url = new URL(path);
