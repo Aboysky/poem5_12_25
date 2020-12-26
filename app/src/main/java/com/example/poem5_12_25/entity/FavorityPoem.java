@@ -27,8 +27,7 @@ public class FavorityPoem {
     public FavorityPoem() {
     }
 
-    public FavorityPoem(long id, long pid, long uid) {
-        this.id = id;
+    public FavorityPoem(long pid, long uid) {
         this.pid = pid;
         this.uid = uid;
     }

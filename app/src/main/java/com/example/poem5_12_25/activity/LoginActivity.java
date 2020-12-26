@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,9 +15,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.poem5_12_25.MainApp;
 import com.example.poem5_12_25.R;
 import com.example.poem5_12_25.cache.LastPoemCache;
+import com.example.poem5_12_25.dao.UserDao;
+import com.example.poem5_12_25.database.Database1;
 import com.example.poem5_12_25.entity.Poem;
+import com.example.poem5_12_25.entity.User;
 import com.example.poem5_12_25.pojo.PoemPojo;
 import com.example.poem5_12_25.utils.http.HttpRequestUtil;
 import com.google.android.material.snackbar.Snackbar;
@@ -39,6 +44,12 @@ public class LoginActivity extends AppCompatActivity {
     LinearLayout mLlLoginactivityTwo;
 
     private Context context = this;
+
+    /**
+     * 保存当前用户名和密码,以用来存入数据库
+     */
+    private String currentUsername;
+    private String currentPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +97,9 @@ public class LoginActivity extends AppCompatActivity {
         protected Boolean doInBackground(String... strings) {
             String username = "",password = "";
             username = strings[0];
+            currentUsername = username;
             password = strings[1];
+            currentPassword = password;
             return HttpRequestUtil.login(username,password);
         }
 
@@ -95,7 +108,13 @@ public class LoginActivity extends AppCompatActivity {
             super.onPostExecute(aBoolean);
             if (aBoolean) {
                 Toast.makeText(context, "登录成功", Toast.LENGTH_SHORT).show();
+                SharedPreferences user = MainApp.getInstance().getSharedPreferences("user", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor =user.edit();
+                editor.putString("currentusername",currentUsername);
                 Intent intent = new Intent(context, PoemActivity.class);
+                UserDao userDao = Database1.getInstance(context).UserDao();
+                userDao.deleteAllUser();
+                userDao.insertUser(new User(1,currentUsername,currentPassword));
                 startActivity(intent);
                 finish();//销毁这个Activity
             }else {

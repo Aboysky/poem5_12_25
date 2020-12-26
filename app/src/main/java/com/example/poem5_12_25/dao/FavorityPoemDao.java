@@ -24,10 +24,18 @@ public interface FavorityPoemDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public Long insertFavorityPoem(FavorityPoem favorityPoem);
 
-    @Delete
-    public int deleteFavorityPoem(FavorityPoem poem);
+    @Query("delete from favoritypoem where pid = :pid")
+    public int deleteFavorityPoem(long pid);
 
     @Query("select * from favoritypoem where uid = :uid")
     public List<FavorityPoem> selectAllFavorityPoemByUid(long uid);
+
+    /**
+     * 查询这首诗是否在收藏范围内
+     * @param pid
+     * @return
+     */
+    @Query("select * from favoritypoem where pid = :pid")
+    public FavorityPoem selectFavorityPoemIsExistByPid(long pid);
 
 }

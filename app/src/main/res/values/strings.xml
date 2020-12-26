@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">诗5</string>
+    <string name="app_name">简◦诗</string>
     <string name="action_settings">设置</string>
     <string name="check_updates">检查更新</string>
     <string name="favorite">我的收藏</string>
@@ -15,7 +15,7 @@
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="title_activity_favorite">我的收藏</string>
     <string name="title_activity_developer">开发者模式</string>
-    <string name="register_agreement">注册即代表同意《用户协议》(并没有</string>
+    <string name="register_agreement">注册即代表同意《用户协议》</string>
     <string name="register">注册</string>
     <string name="robot_code">请输入4位验证码</string>
 </resources>

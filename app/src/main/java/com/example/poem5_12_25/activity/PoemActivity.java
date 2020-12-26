@@ -16,6 +16,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.example.poem5_12_25.R;
 import com.example.poem5_12_25.cache.LastPoemCache;
+import com.example.poem5_12_25.dao.FavorityPoemDao;
+import com.example.poem5_12_25.database.Database1;
+import com.example.poem5_12_25.entity.FavorityPoem;
 import com.example.poem5_12_25.entity.Poem;
 import com.example.poem5_12_25.pojo.PoemPojo;
 import com.example.poem5_12_25.utils.http.HttpRequestUtil;
@@ -101,21 +104,23 @@ public class PoemActivity extends AppCompatActivity {
 
         // 点击收藏按钮
         fabFavorite.setOnClickListener(v -> {
-//            PoemFavoriteEntityDao poemFavoriteDao = MainApp.getInstance().daoSession.getPoemFavoriteEntityDao();
-//            PoemFavoriteEntity poemFavoriteEntity = new PoemFavoriteEntity(
-//                    currentPoem.getId(),
-//                    currentPoem.getTitle(),
-//                    currentPoem.getAuthor(),
-//                    currentPoem.getContentCsv()
-//            );
-//
-//            if (poemFavoriteDao.load(poemFavoriteEntity.getId()) == null) {
-//                poemFavoriteDao.insert(poemFavoriteEntity);
-//                Snackbar.make(coordinatorLayout, String.format("《%s》已加入收藏夹", tvTitle.getText()), Snackbar.LENGTH_SHORT).show();
-//            } else {
-//                poemFavoriteDao.delete(poemFavoriteEntity);
-//                Snackbar.make(coordinatorLayout, String.format("《%s》已经从收藏夹移除", tvTitle.getText()), Snackbar.LENGTH_SHORT).show();
-//            }
+            FavorityPoemDao favorityPoemDao = Database1.getInstance(this).FavorityPoemDao();
+            Poem poemFavoriteEntity = new Poem(
+                    currentPoem.getId(),
+                    currentPoem.getName(),
+                    currentPoem.getAuthor(),
+                    currentPoem.getContentCsv()
+            );
+            // 注意: 这里默认将本地唯一登录用户的id设置为1,但是其实应该保存到云端.然后每次登陆时,从云端获取数据.
+            FavorityPoem favorityPoem = new FavorityPoem(poemFavoriteEntity.getId(),1);
+            if (favorityPoemDao.selectFavorityPoemIsExistByPid(poemFavoriteEntity.getId()) == null) {
+                // 数据应该上传到云端
+                favorityPoemDao.insertFavorityPoem(favorityPoem);
+                Snackbar.make(coordinatorLayout, String.format("《%s》已加入收藏夹", tvTitle.getText()), Snackbar.LENGTH_SHORT).show();
+            } else {
+                favorityPoemDao.deleteFavorityPoem(poemFavoriteEntity.getId());
+                Snackbar.make(coordinatorLayout, String.format("《%s》已经从收藏夹移除", tvTitle.getText()), Snackbar.LENGTH_SHORT).show();
+            }
         });
 
     }
