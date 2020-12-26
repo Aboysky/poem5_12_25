@@ -14,6 +14,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -31,4 +36,29 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+    implementation 'com.jakewharton:butterknife:10.2.3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+
+    implementation "com.android.support:support-annotations:28.0.0"
+    //解决Glide找不到Android声明库问题
+    annotationProcessor 'androidx.annotation:annotation:1.1.0'
+
+
+    // android版
+    implementation 'com.alibaba:fastjson:1.1.71.android'
+
+
+    // 第三方控件
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'com.jaeger.statusbarutil:library:1.4.0'     // 状态栏工具
+
+
 }

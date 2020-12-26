@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="colorPrimary">#6200EE</color>
-	<color name="colorPrimaryDark">#3700B3</color>
-	<color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#00796B</color>
+    <color name="colorAccent">#009688</color>
+    <color name="textColorPrimary">#616161</color>
+    <color name="viewBackground">@android:color/white</color>
+
+    <color name="blue">#3F51B5</color>
+    <color name="blue_dark">#303F9F</color>
+    <color name="red">#FF4081</color>
+    <color name="transparent">#0000</color>
+    <color name="black">#000</color>
+    <color name="white">#fff</color>
+    <color name="gray">#999</color>
+
+    <!--中国色-->
+    <color name="马鞭草紫">#ede3e7</color>
+    <color name="丁香淡紫">#e9d7df</color>
+    <color name="潭水绿">#645822</color>
 </resources>
