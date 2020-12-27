@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:id="@+id/coordinatorLayout"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context=".activity.PoemActivity"
+		android:theme="@style/AppTheme">
+
+	<com.google.android.material.appbar.AppBarLayout
+			android:id="@+id/appbar"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:fitsSystemWindows="true"
+			android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+			<androidx.appcompat.widget.Toolbar
+					android:id="@+id/toolbar"
+					android:layout_width="match_parent"
+					android:layout_height="?attr/actionBarSize"
+					app:layout_collapseMode="pin"
+					app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+					app:title="设置" />
+
+	</com.google.android.material.appbar.AppBarLayout>
+
+	<ScrollView
+			android:id="@+id/sv_content"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="30dp"
+			android:layout_marginBottom="30dp"
+			android:focusableInTouchMode="true"
+			app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center_horizontal"
+				android:orientation="vertical">
+
+
+			<androidx.appcompat.widget.SwitchCompat
+				android:id="@+id/setting_cloud_upload"
+				android:layout_width="290dp"
+				fontPath="fonts/hw.ttf"
+				android:textSize="18sp"
+				android:layout_height="wrap_content"
+				android:text="@string/cloud_upload" />
+
+			<androidx.appcompat.widget.SwitchCompat
+				android:id="@+id/setting_refresh_login_page"
+				android:layout_width="290dp"
+				android:layout_height="wrap_content"
+				fontPath="fonts/hw.ttf"
+				android:textSize="18sp"
+				android:layout_gravity="center_horizontal"
+				android:text="@string/refresh_login_page" />
+
+			<androidx.appcompat.widget.SwitchCompat
+				android:id="@+id/setting_refresh_register_page"
+				android:layout_width="290dp"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				android:textSize="18sp"
+				fontPath="fonts/hw.ttf"
+				android:text="@string/refresh_register_page" />
+
+			<androidx.appcompat.widget.SwitchCompat
+				android:id="@+id/setting_refresh_user_page"
+				android:layout_width="290dp"
+				android:textSize="18sp"
+				android:layout_height="wrap_content"
+				fontPath="fonts/hw.ttf"
+				android:text="@string/refresh_user_page" />
+
+			<androidx.appcompat.widget.SwitchCompat
+				android:id="@+id/setting_refresh_poem_page"
+				android:layout_width="290dp"
+				android:textSize="18sp"
+				android:layout_height="wrap_content"
+				fontPath="fonts/hw.ttf"
+				android:text="@string/refresh_poem_page" />
+
+			<androidx.appcompat.widget.SwitchCompat
+				android:id="@+id/setting_clear_data_logout"
+				android:layout_width="290dp"
+				android:textSize="18sp"
+				fontPath="fonts/hw.ttf"
+				android:layout_height="wrap_content"
+				android:text="@string/clear_data_logout" />
+
+
+			<androidx.appcompat.widget.SwitchCompat
+				android:id="@+id/setting_night_code"
+				android:layout_width="290dp"
+				android:textSize="18sp"
+				android:layout_height="wrap_content"
+				fontPath="fonts/hw.ttf"
+				android:text="@string/night_code"
+				tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+			<androidx.appcompat.widget.SwitchCompat
+				android:id="@+id/setting_text_size"
+				android:layout_width="290dp"
+				android:textSize="18sp"
+				android:layout_height="wrap_content"
+				fontPath="fonts/hw.ttf"
+				android:text="@string/text_large"
+				tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+
+
+			<Button
+				android:layout_marginTop="100dp"
+				android:layout_width="150dp"
+				android:background="@color/colorPrimary"
+				android:layout_height="wrap_content"
+				android:textColor="@color/white"
+				android:layout_gravity="center_horizontal"
+				fontPath="fonts/hw.ttf"
+				android:textSize="18sp"
+				android:text="保存"
+				tools:ignore="MissingPrefix" />
+
+			<Button
+				android:textColor="@color/white"
+				android:layout_marginTop="10dp"
+				android:background="@color/colorPrimary"
+				android:layout_gravity="center_horizontal"
+				fontPath="fonts/hw.ttf"
+				android:layout_width="150dp"
+				android:textSize="18sp"
+				android:layout_height="wrap_content"
+				android:text="退出(不保存更改)"
+				tools:ignore="MissingPrefix" />
+		</LinearLayout>
+
+
+
+	</ScrollView>
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

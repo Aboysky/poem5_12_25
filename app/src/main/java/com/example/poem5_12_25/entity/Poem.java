@@ -109,7 +109,7 @@ public class Poem {
     }
 
     public ArrayList<String> getContent() {
-        return content;
+        return this.content;
     }
 
     // 返回以逗号分割的内容

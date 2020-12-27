@@ -64,6 +64,7 @@ public class PoemAdapter extends RecyclerView.Adapter<PoemAdapter.ContentHolder>
         // 确保不会超出数组边界
         if (position < poems.size()) {
             Poem poem = poems.get(position);
+            System.out.println("Poem = "+poem);
             holder.tv_title.setText(poem.getName());
             holder.tv_author.setText(poem.getAuthor());
             String s = Arrays.toString(poem.getContent().toArray());

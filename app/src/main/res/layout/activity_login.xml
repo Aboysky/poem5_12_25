@@ -108,7 +108,7 @@
         android:gravity="center"
         android:onClick="onClick"
         />
-    />
+
 
     <TextView
         android:id="@+id/other"
@@ -118,7 +118,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="284dp"
         android:gravity="center"
-        android:text="-------------------------其他登陆方式-------------------------" />
+        android:text="" />
 
 
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.example.poem5_12_25.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -16,9 +17,12 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.ViewCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import com.example.poem5_12_25.GlobalObject;
 import com.example.poem5_12_25.R;
 import com.example.poem5_12_25.cache.LastPoemCache;
 import com.example.poem5_12_25.dao.FavorityPoemDao;
+import com.example.poem5_12_25.dao.PoemDao;
 import com.example.poem5_12_25.database.Database1;
 import com.example.poem5_12_25.entity.FavorityPoem;
 import com.example.poem5_12_25.entity.Poem;
@@ -36,10 +40,11 @@ import com.jaeger.library.StatusBarUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
-public class PoemActivity extends AppCompatActivity {
+public class PoemActivity extends BaseActivity {
 
     private static final String TAG = "PoemActivity";
 
@@ -66,6 +71,8 @@ public class PoemActivity extends AppCompatActivity {
     @BindView(R.id.coordinatorLayout)
     CoordinatorLayout coordinatorLayout;
 
+    private Context context = this;
+
     private Poem currentPoem;
 
 
@@ -91,11 +98,15 @@ public class PoemActivity extends AppCompatActivity {
         // 打开时显示诗文设置
         Intent intent = getIntent();
         if (intent.getBooleanExtra("local", false)) {
-            setCurrentPoem(new Poem(
+            String content = intent.getStringExtra("content");
+            String substring = content.substring(1, content.length() - 1);
+            Poem poem = new Poem(
                     intent.getIntExtra("id", 0),
                     intent.getStringExtra("author"),
                     intent.getStringExtra("title"),
-                    intent.getStringExtra("content")));
+                    substring
+                    );
+            setCurrentPoem(poem);
         } else {
             // 打开自动刷新一首诗
             Poem lastPoem = LastPoemCache.getLastPoem();
@@ -107,23 +118,29 @@ public class PoemActivity extends AppCompatActivity {
 
         // 点击收藏按钮
         fabFavorite.setOnClickListener(v -> {
-            FavorityPoemDao favorityPoemDao = Database1.getInstance(this).FavorityPoemDao();
-            Poem poemFavoriteEntity = new Poem(
-                    currentPoem.getId(),
-                    currentPoem.getName(),
-                    currentPoem.getAuthor(),
-                    currentPoem.getContentCsv()
-            );
-            // 注意: 这里默认将本地唯一登录用户的id设置为1,但是其实应该保存到云端.然后每次登陆时,从云端获取数据.
-            FavorityPoem favorityPoem = new FavorityPoem(poemFavoriteEntity.getId(),1);
-            if (favorityPoemDao.selectFavorityPoemIsExistByPid(poemFavoriteEntity.getId()) == null) {
-                // 数据应该上传到云端
-                favorityPoemDao.insertFavorityPoem(favorityPoem);
-                Snackbar.make(coordinatorLayout, String.format("《%s》已加入收藏夹", tvTitle.getText()), Snackbar.LENGTH_SHORT).show();
-            } else {
-                favorityPoemDao.deleteFavorityPoem(poemFavoriteEntity.getId());
-                Snackbar.make(coordinatorLayout, String.format("《%s》已经从收藏夹移除", tvTitle.getText()), Snackbar.LENGTH_SHORT).show();
-            }
+            GlobalObject.submitTask(() -> {
+                FavorityPoemDao favorityPoemDao = Database1.getInstance(context).FavorityPoemDao();
+                PoemDao poemDao = Database1.getInstance(context).PoemDao();
+                Poem poemFavoriteEntity = new Poem(
+                        currentPoem.getId(),
+                        currentPoem.getAuthor(),
+                        currentPoem.getName(),
+                        currentPoem.getContentCsv()
+                );
+                // 注意: 这里默认将本地唯一登录用户的id设置为1,但是其实应该保存到云端.然后每次登陆时,从云端获取数据.
+                FavorityPoem favorityPoem = new FavorityPoem(poemFavoriteEntity.getId(),1);
+                if (favorityPoemDao.selectFavorityPoemIsExistByPid(poemFavoriteEntity.getId()) == null) {
+                    // 数据应该上传到云端
+                    favorityPoemDao.insertFavorityPoem(favorityPoem);
+                    poemDao.insertPoem(poemFavoriteEntity);
+                    Snackbar.make(coordinatorLayout, String.format("《%s》已加入收藏夹", tvTitle.getText()), Snackbar.LENGTH_SHORT).show();
+                } else {
+                    favorityPoemDao.deleteFavorityPoem(poemFavoriteEntity.getId());
+                    poemDao.deletePoem(poemFavoriteEntity);
+                    Snackbar.make(coordinatorLayout, String.format("《%s》已经从收藏夹移除", tvTitle.getText()), Snackbar.LENGTH_SHORT).show();
+                }
+            });
+
         });
 
     }
@@ -157,6 +174,7 @@ public class PoemActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             tvContent.setText(String.join("\n", poem.getContent()));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
             tvContent.setText(poem.getContent().stream().collect(Collectors.joining("\n")));
         } else {
             StringBuilder joinContent = new StringBuilder();

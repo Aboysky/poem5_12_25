@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mainbg"
+    tools:context=".activity.MainActivity"
+    android:orientation="vertical"
+    >
+
+
+    <TextView
+        android:id="@+id/text1"
+        fontPath="fonts/hw.ttf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="36dp"
+        android:textColor="@color/black"
+        android:text="@string/life"
+        android:textSize="28sp"
+        tools:ignore="MissingPrefix" />
+
+    <TextView
+        android:id="@+id/text2"
+        fontPath="fonts/hw.ttf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:text="@string/positions"
+        android:textSize="28sp"
+        tools:ignore="MissingPrefix" />
+
+    <TextView
+        android:id="@+id/text3"
+        fontPath="fonts/hw.ttf"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/extra_positon"
+        android:textSize="28sp"
+        tools:ignore="MissingPrefix" />
+
+    <TextView
+        android:id="@+id/text4"
+        fontPath="fonts/hw.ttf"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/life_position"
+        android:textSize="28sp"
+        tools:ignore="MissingPrefix" />
+
+
+    <Button
+        android:id="@+id/bt_user_poem"
+        android:textSize="18sp"
+        fontPath="fonts/hw.ttf"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/colorAccent"
+        android:text="唐诗"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:onClick="onClick"
+        tools:ignore="MissingPrefix" />
+    <Button
+        android:id="@+id/bt_user_song"
+        android:textSize="18sp"
+        android:layout_width="160dp"
+        fontPath="fonts/hw.ttf"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/colorAccent"
+        android:text="宋词"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:onClick="onClick"
+        tools:ignore="MissingPrefix" />
+    <Button
+        android:id="@+id/bt_user_novel"
+        android:textSize="18sp"
+        fontPath="fonts/hw.ttf"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/colorAccent"
+        android:text="小说"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:onClick="onClick"
+        tools:ignore="MissingPrefix" />
+    <Button
+        android:id="@+id/bt_user_foreiner"
+        android:textSize="18sp"
+        fontPath="fonts/hw.ttf"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/colorAccent"
+        android:text="外国文学"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:onClick="onClick"
+        tools:ignore="MissingPrefix" />
+    <Button
+        android:id="@+id/bt_user_logout"
+        android:textSize="18sp"
+        fontPath="fonts/hw.ttf"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/colorAccent"
+        android:text="退出登录"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:onClick="onClick"
+        tools:ignore="MissingPrefix" />
+    <Button
+        android:id="@+id/bt_system_setting"
+        android:textSize="18sp"
+        fontPath="fonts/hw.ttf"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/colorAccent"
+        android:text="@string/setting_system"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:onClick="onClick"
+        tools:ignore="MissingPrefix" />
+</LinearLayout>

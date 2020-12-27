@@ -2,6 +2,7 @@ package com.example.poem5_12_25.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,11 +22,12 @@ import com.google.android.material.snackbar.Snackbar;
 import com.jaeger.library.StatusBarUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FavoriteActivity extends AppCompatActivity {
+public class FavoriteActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -65,15 +67,18 @@ public class FavoriteActivity extends AppCompatActivity {
         rvContent.addOnItemTouchListener(new RecyclerItemClickListener(rvContent, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+
                 if (position < poem_list.size()) {
                     Poem poem = poem_list.get(position);
+                    System.out.println(Arrays.toString(poem.getContent().toArray()));
                     Intent intent = new Intent(FavoriteActivity.this,PoemActivity.class);
                     intent.putExtra("local", true);         // 是否本地页面的标志
                     intent.putExtra("position", position);
                     intent.putExtra("id", poem.getId());
                     intent.putExtra("title", poem.getName());
                     intent.putExtra("author", poem.getAuthor());
-                    intent.putExtra("content", poem.getContent());
+                    intent.putExtra("content", Arrays.toString(poem.getContent().toArray()));
+
                     startActivity(intent);
                 }
             }
@@ -96,6 +101,9 @@ public class FavoriteActivity extends AppCompatActivity {
         FavorityPoemService favorityPoemService = new FavorityPoemService(this);
         poem_list = new ArrayList<>();
         poem_list.addAll(favorityPoemService.selectUserAllFavorityPoem());
+
+        Log.d("poem_list", Arrays.toString(poem_list.toArray()));
+
         rvContent.setAdapter(new PoemAdapter(poem_list, this, rvContent));
         Snackbar.make(rvContent, "刷新收藏夹完成！", Snackbar.LENGTH_SHORT).show();
         srlRefresh.setRefreshing(false);

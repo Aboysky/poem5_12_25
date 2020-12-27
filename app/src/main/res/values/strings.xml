@@ -18,4 +18,20 @@
     <string name="register_agreement">注册即代表同意《用户协议》</string>
     <string name="register">注册</string>
     <string name="robot_code">请输入4位验证码</string>
+    <string name="hello_world">你好,世界!</string>
+    <string name="life_position">有态度的生活!</string>
+    <string name="extra_positon">但更需要</string>
+    <string name="positions">需要态度</string>
+    <string name="life">生活</string>
+    <string name="Home_page">首页</string>
+    <string name="setting_font_size">字体大小:               </string>
+    <string name="setting_system">系统设置</string>
+    <string name="cloud_upload">是否开启云端数据保存</string>
+    <string name="refresh_login_page">登录页面背景自动刷新</string>
+    <string name="refresh_register_page">注册页面背景自动刷新</string>
+    <string name="refresh_user_page">首页背景自动刷新</string>
+    <string name="refresh_poem_page">古诗背景刷新</string>
+    <string name="clear_data_logout">退出清理所有数据</string>
+    <string name="night_code">夜间模式</string>
+    <string name="text_large">大号字体</string>
 </resources>

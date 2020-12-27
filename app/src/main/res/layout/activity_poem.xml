@@ -24,7 +24,7 @@
 				app:contentScrim="?attr/colorPrimary"
 				app:expandedTitleMarginEnd="64dp"
 				app:expandedTitleMarginStart="48dp"
-				app:layout_scrollFlags="scroll|exitUntilCollapsed"
+				app:layout_scrollFlags="scroll"
 				app:title="@string/app_name">
 
 			<!--app:statusBarScrim="?attr/colorPrimaryDark"-->
@@ -76,7 +76,7 @@
 					android:text="@string/poem_title"
 					android:textAlignment="center"
 					android:textIsSelectable="true"
-					android:textSize="22sp" android:gravity="center_horizontal"/>
+					android:textSize="18sp" android:gravity="center_horizontal"/>
 
 			<TextView
 					android:id="@+id/tv_author"

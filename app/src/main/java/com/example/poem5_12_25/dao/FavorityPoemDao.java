@@ -27,6 +27,10 @@ public interface FavorityPoemDao {
     @Query("delete from favoritypoem where pid = :pid")
     public int deleteFavorityPoem(long pid);
 
+
+    @Query("delete from favoritypoem ")
+    public int deleteAllFavorityPoem();
+
     @Query("select * from favoritypoem where uid = :uid")
     public List<FavorityPoem> selectAllFavorityPoemByUid(long uid);
 

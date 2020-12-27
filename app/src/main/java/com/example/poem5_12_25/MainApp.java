@@ -8,11 +8,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 public class MainApp extends Application {
     private static MainApp mApp;
 
-    // 配置管理器
-//    public ConfigManager config;
-//    // 数据库
-//    public DaoSession daoSession;
-
     public static MainApp getInstance() {
         return mApp;
     }
@@ -23,8 +18,8 @@ public class MainApp extends Application {
         // 自动开启夜间模式
 //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
         mApp = this;
-//        config = new ConfigManager(this);
-//        daoSession = initGreenDao();
+//        MultiDex.install(this);
+
     }
 
     public void setNightMode(boolean isEnabled) {
@@ -50,16 +45,4 @@ public class MainApp extends Application {
         }
     }
 
-
-    /**
-     * 数据库初始化
-     *
-     * @return
-     */
-//    private DaoSession initGreenDao() {
-//        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, config.getDBName());
-//        SQLiteDatabase sqLiteDatabase = helper.getWritableDatabase();
-//        DaoMaster daoMaster = new DaoMaster(sqLiteDatabase);
-//        return daoMaster.newSession();
-//    }
 }

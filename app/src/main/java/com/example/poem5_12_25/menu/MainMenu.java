@@ -4,14 +4,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.MenuItem;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.poem5_12_25.MainApp;
 import com.example.poem5_12_25.R;
 import com.example.poem5_12_25.activity.FavoriteActivity;
+import com.example.poem5_12_25.activity.UserActivity;
 
 
 public class MainMenu {
@@ -20,11 +19,13 @@ public class MainMenu {
 
     public MainMenu(Context context) {
         this.mContext = context;
-
     }
-
+    
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_home:
+                mContext.startActivity(new Intent(mContext, UserActivity.class));
+                return true;
             // 我的收藏
             case R.id.menu_favorite:
                 mContext.startActivity(new Intent(mContext, FavoriteActivity.class));
@@ -46,7 +47,7 @@ public class MainMenu {
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setTitle(String.format("关于「%s」", mContext.getString(R.string.app_name)));
 
-                builder.setMessage(String.format("版本号：%s\n Designed by huan \n © 2020 Aboysky. All Rights Reserved.", 1.1));
+                builder.setMessage(String.format("\n        简单 是一种生活的态度\n           而诗 是一种有态度的生活!\n\n\n版本号：%s\n Designed by huan \n © 2020 Aboysky. All Rights Reserved.",mContext.getResources().getString(R.string.version)));
                 builder.setPositiveButton("我知道了", (dialog, which) -> {
 
                 });
