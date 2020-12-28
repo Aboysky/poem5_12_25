@@ -15,11 +15,7 @@ public class MainApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        // 自动开启夜间模式
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
         mApp = this;
-//        MultiDex.install(this);
-
     }
 
     public void setNightMode(boolean isEnabled) {

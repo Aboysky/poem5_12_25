@@ -47,7 +47,7 @@
 				android:id="@+id/setting_cloud_upload"
 				android:layout_width="290dp"
 				fontPath="fonts/hw.ttf"
-				android:textSize="18sp"
+				android:textSize="@dimen/sp_18"
 				android:layout_height="wrap_content"
 				android:text="@string/cloud_upload" />
 
@@ -56,7 +56,7 @@
 				android:layout_width="290dp"
 				android:layout_height="wrap_content"
 				fontPath="fonts/hw.ttf"
-				android:textSize="18sp"
+				android:textSize="@dimen/sp_18"
 				android:layout_gravity="center_horizontal"
 				android:text="@string/refresh_login_page" />
 
@@ -65,14 +65,14 @@
 				android:layout_width="290dp"
 				android:layout_height="wrap_content"
 				android:layout_gravity="center_horizontal"
-				android:textSize="18sp"
+				android:textSize="@dimen/sp_18"
 				fontPath="fonts/hw.ttf"
 				android:text="@string/refresh_register_page" />
 
 			<androidx.appcompat.widget.SwitchCompat
 				android:id="@+id/setting_refresh_user_page"
 				android:layout_width="290dp"
-				android:textSize="18sp"
+				android:textSize="@dimen/sp_18"
 				android:layout_height="wrap_content"
 				fontPath="fonts/hw.ttf"
 				android:text="@string/refresh_user_page" />
@@ -80,7 +80,7 @@
 			<androidx.appcompat.widget.SwitchCompat
 				android:id="@+id/setting_refresh_poem_page"
 				android:layout_width="290dp"
-				android:textSize="18sp"
+				android:textSize="@dimen/sp_18"
 				android:layout_height="wrap_content"
 				fontPath="fonts/hw.ttf"
 				android:text="@string/refresh_poem_page" />
@@ -88,7 +88,7 @@
 			<androidx.appcompat.widget.SwitchCompat
 				android:id="@+id/setting_clear_data_logout"
 				android:layout_width="290dp"
-				android:textSize="18sp"
+				android:textSize="@dimen/sp_18"
 				fontPath="fonts/hw.ttf"
 				android:layout_height="wrap_content"
 				android:text="@string/clear_data_logout" />
@@ -97,7 +97,7 @@
 			<androidx.appcompat.widget.SwitchCompat
 				android:id="@+id/setting_night_code"
 				android:layout_width="290dp"
-				android:textSize="18sp"
+				android:textSize="@dimen/sp_18"
 				android:layout_height="wrap_content"
 				fontPath="fonts/hw.ttf"
 				android:text="@string/night_code"
@@ -106,15 +106,14 @@
 			<androidx.appcompat.widget.SwitchCompat
 				android:id="@+id/setting_text_size"
 				android:layout_width="290dp"
-				android:textSize="18sp"
+				android:textSize="@dimen/sp_18"
 				android:layout_height="wrap_content"
 				fontPath="fonts/hw.ttf"
 				android:text="@string/text_large"
 				tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-
-
 			<Button
+				android:id="@+id/setting_save"
 				android:layout_marginTop="100dp"
 				android:layout_width="150dp"
 				android:background="@color/colorPrimary"
@@ -122,21 +121,10 @@
 				android:textColor="@color/white"
 				android:layout_gravity="center_horizontal"
 				fontPath="fonts/hw.ttf"
-				android:textSize="18sp"
-				android:text="保存"
+				android:textSize="@dimen/sp_18"
+				android:text="@string/store"
 				tools:ignore="MissingPrefix" />
 
-			<Button
-				android:textColor="@color/white"
-				android:layout_marginTop="10dp"
-				android:background="@color/colorPrimary"
-				android:layout_gravity="center_horizontal"
-				fontPath="fonts/hw.ttf"
-				android:layout_width="150dp"
-				android:textSize="18sp"
-				android:layout_height="wrap_content"
-				android:text="退出(不保存更改)"
-				tools:ignore="MissingPrefix" />
 		</LinearLayout>
 
 

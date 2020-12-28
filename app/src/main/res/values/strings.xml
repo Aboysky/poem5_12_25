@@ -34,4 +34,5 @@
     <string name="clear_data_logout">退出清理所有数据</string>
     <string name="night_code">夜间模式</string>
     <string name="text_large">大号字体</string>
+    <string name="store">保存</string>
 </resources>

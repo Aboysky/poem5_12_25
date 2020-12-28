@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/loginbg"
+    android:id="@+id/layout_login"
     tools:context=".activity.LoginActivity">
 
     <RelativeLayout
@@ -31,7 +32,7 @@
             android:layout_height="wrap_content"
             android:text="登录"
             android:textColor="#fff"
-            android:textSize="20dp"
+            android:textSize="@dimen/sp_24"
             android:layout_toRightOf="@+id/iv_loginactivity_back"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
@@ -42,7 +43,7 @@
             android:layout_height="wrap_content"
             android:text="注册"
             android:textColor="#fff"
-            android:textSize="20dp"
+            android:textSize="@dimen/sp_24"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="30dp"
@@ -69,11 +70,13 @@
                 android:id="@+id/tv_loginactivity_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_18"
                 android:text="用户名："/>
             <EditText
                 android:id="@+id/et_loginactivity_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_14"
                 android:hint="手机号/邮箱/用户名"/>
         </LinearLayout>
         <LinearLayout
@@ -84,11 +87,13 @@
                 android:id="@+id/tv_loginactivity_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_18"
                 android:text="密    码："/>
             <EditText
                 android:id="@+id/et_loginactivity_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_14"
                 android:hint="登录密码"
                 android:inputType="textPassword"/>
         </LinearLayout>
@@ -102,13 +107,13 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+        android:textSize="@dimen/sp_24"
         android:background="@color/colorAccent"
         android:text="登录"
         android:textColor="#fff"
         android:gravity="center"
         android:onClick="onClick"
         />
-
 
     <TextView
         android:id="@+id/other"

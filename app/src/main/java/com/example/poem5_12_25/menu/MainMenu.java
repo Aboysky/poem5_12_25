@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat;
 import com.example.poem5_12_25.MainApp;
 import com.example.poem5_12_25.R;
 import com.example.poem5_12_25.activity.FavoriteActivity;
+import com.example.poem5_12_25.activity.SettingActivity;
 import com.example.poem5_12_25.activity.UserActivity;
 
 
@@ -30,18 +31,20 @@ public class MainMenu {
             case R.id.menu_favorite:
                 mContext.startActivity(new Intent(mContext, FavoriteActivity.class));
                 return true;
-
             // 夜间模式
             case R.id.menu_night_mode:
                 MainApp.getInstance().setNightMode(true);
                 ((AppCompatActivity) mContext).recreate();
                 return true;
-
             // 白天模式
             case R.id.menu_daylight_mode:
                 MainApp.getInstance().setNightMode(false);
                 ((AppCompatActivity) mContext).recreate();
                 return true;
+            case R.id.menu_system_setting:
+                mContext.startActivity(new Intent(mContext,SettingActivity.class));
+                return true;
+
             // 「关于」菜单
             case R.id.menu_about:
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);

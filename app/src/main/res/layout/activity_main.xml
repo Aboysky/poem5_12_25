@@ -21,7 +21,7 @@
 		android:layout_marginTop="36dp"
 		android:gravity="center_horizontal"
 		android:text="@string/life"
-		android:textSize="36sp"
+		android:textSize="@dimen/sp_24"
 		tools:ignore="MissingPrefix" />
 
 	<TextView
@@ -33,7 +33,7 @@
 		android:layout_marginLeft="126sp"
 		android:gravity="center_horizontal"
 		android:text="@string/positions"
-		android:textSize="36sp"
+		android:textSize="@dimen/sp_24"
 		tools:ignore="MissingPrefix" />
 
 	<TextView
@@ -44,8 +44,9 @@
 		android:layout_marginStart="50sp"
 		android:layout_marginLeft="100sp"
 		android:gravity="center_horizontal"
+
 		android:text="@string/extra_positon"
-		android:textSize="36sp"
+		android:textSize="@dimen/sp_24"
 		tools:ignore="MissingPrefix" />
 
 	<TextView
@@ -57,12 +58,12 @@
 		android:layout_marginLeft="126sp"
 		android:gravity="center_horizontal"
 		android:text="@string/life_position"
-		android:textSize="36sp"
+		android:textSize="@dimen/sp_24"
 		tools:ignore="MissingPrefix" />
 
 	<Button
 		android:id="@+id/bt_main_login"
-		android:textSize="26sp"
+		android:textSize="@dimen/sp_24"
 		fontPath="fonts/hw.ttf"
 		android:layout_width="200dp"
 		android:layout_height="wrap_content"
@@ -78,7 +79,7 @@
 		tools:ignore="MissingPrefix" />
 	<Button
 		android:id="@+id/bt_main_register"
-		android:textSize="26sp"
+		android:textSize="@dimen/sp_24"
 		android:layout_width="200dp"
 		fontPath="fonts/hw.ttf"
 		android:layout_height="wrap_content"

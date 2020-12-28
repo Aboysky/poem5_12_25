@@ -1,17 +1,28 @@
 package com.example.poem5_12_25.utils.http;
 
+import android.app.Application;
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.ContactsContract;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.poem5_12_25.contant.ServerContant;
+import com.example.poem5_12_25.dao.UserDao;
+import com.example.poem5_12_25.database.Database1;
+import com.example.poem5_12_25.entity.FavorityPoem;
 import com.example.poem5_12_25.entity.Poem;
+import com.example.poem5_12_25.entity.User;
 import com.example.poem5_12_25.pojo.PoemPojo;
 import com.example.poem5_12_25.utils.http.tool.HttpRequestData;
 import com.example.poem5_12_25.utils.http.tool.HttpResponseData;
 import com.example.poem5_12_25.utils.http.tool.StreamTool;
+import com.example.poem5_12_25.viewmodel.ConfigViewModel;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -21,6 +32,8 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -204,7 +217,7 @@ public class HttpRequestUtil {
         try {
             URL url = new URL(ServerContant.REGISTER_URL);
             HttpURLConnection connect=(HttpURLConnection)url.openConnection();
-            setConnHeader(connect,"POST",new HttpRequestData(ServerContant.LOGIN_URL));
+            setConnHeader(connect,"POST",new HttpRequestData(ServerContant.REGISTER_URL));
             connect.setDoOutput(true);
             connect.setDoInput(true);
             // 获取URLConnection对象对应的输出流
@@ -379,6 +392,99 @@ public class HttpRequestUtil {
             resp_data.success = false;
         }
         return resp_data;
+    }
+
+    public static Boolean UploadUserInfo(AppCompatActivity context) {
+        UserDao userDao = Database1.getInstance(context).UserDao();
+        ConfigViewModel configViewModel = new ViewModelProvider(context).get(ConfigViewModel.class);
+        Map<String,Boolean> config = new HashMap<>();
+        config.put("cloud_upload",configViewModel.getCloud_update().getValue());
+        config.put("login_refresh",configViewModel.getLogin_refresh().getValue());
+        config.put("register_refresh",configViewModel.getRegister_refresh().getValue());
+        config.put("poem_refresh",configViewModel.getPoem_refresh().getValue());
+        config.put("clear_all",configViewModel.getClear_all().getValue());
+        config.put("night_mode",configViewModel.getNight_mode().getValue());
+        config.put("max_text",configViewModel.getMax_text().getValue());
+        config.put("home_refresh",configViewModel.getHome_refresh().getValue());
+
+        List<User> users = (List<User>) userDao.selectAllUser();
+        User user = users.get(0);
+        List<FavorityPoem> favorityPoems = Database1.getInstance(context).FavorityPoemDao().selectAllFavorityPoemByUid(user.getId());
+        List<String> favorityPoemIds = new ArrayList<>();
+        for (FavorityPoem favorityPoem : favorityPoems) {
+            favorityPoemIds.add(String.valueOf(favorityPoem.getId()));
+        }
+        Map<String,Object> param = new HashMap<>();
+        param.put("user",user);
+        param.put("favorityPoemsIds",favorityPoemIds);
+        param.put("setting",config);
+        String paramJson = JSON.toJSONString(param);
+        Log.d("上传用户信息参数",paramJson);
+        PrintWriter out = null;
+        BufferedReader in1 = null;
+        try {
+            URL url = new URL(ServerContant.UPLOAD_URL);
+            HttpURLConnection connect=(HttpURLConnection)url.openConnection();
+            setConnHeader(connect,"POST",new HttpRequestData(ServerContant.LOGIN_URL));
+            connect.setDoOutput(true);
+            connect.setDoInput(true);
+            // 获取URLConnection对象对应的输出流
+            out = new PrintWriter(connect.getOutputStream());
+            // 发送请求参数
+            out.print(paramJson);
+            // flush输出流的缓冲
+            out.flush();
+            connect.connect();
+            if (connect.getResponseCode() == 200){
+                InputStream input=connect.getInputStream();
+                BufferedReader in = new BufferedReader(new InputStreamReader(input));
+                String line = null;
+                System.out.println(connect.getResponseCode());
+                StringBuilder sb = new StringBuilder();
+                while ((line = in.readLine()) != null) {
+                    sb.append(line);
+                }
+                System.out.println(sb.toString());
+                JSONObject jsonObject = JSON.parseObject(sb.toString());
+                Integer code = (Integer) jsonObject.get("code");
+                if (code!=null&&code==200){
+                    return Boolean.TRUE;
+                }
+                return Boolean.FALSE;
+            }
+            return Boolean.FALSE;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return Boolean.FALSE;
+        }
+
+    }
+
+    public static Bitmap getHttpBitmap(String url){
+        URL myFileURL;
+        Bitmap bitmap=null;
+        try{
+            myFileURL = new URL(url);
+            //获得连接
+            HttpURLConnection conn=(HttpURLConnection)myFileURL.openConnection();
+            //设置超时时间为6000毫秒，conn.setConnectionTiem(0);表示没有时间限制
+            conn.setConnectTimeout(6000);
+            //连接设置获得数据流
+            conn.setDoInput(true);
+            //不使用缓存
+            conn.setUseCaches(false);
+            //这句可有可无，没有影响
+            //conn.connect();
+            //得到数据流
+            InputStream is = conn.getInputStream();
+            //解析得到图片
+            bitmap = BitmapFactory.decodeStream(is);
+            //关闭数据流
+            is.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return bitmap;
     }
 //
 //    public static void main(String[] args) {

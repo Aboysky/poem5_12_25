@@ -34,4 +34,7 @@ public interface PoemDao {
 
     @Delete
     public int deletePoem(Poem poem);
+
+    @Query("delete from Poem")
+    public int deleteAllPoem();
 }

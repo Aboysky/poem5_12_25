@@ -1,6 +1,7 @@
 package com.example.poem5_12_25.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import com.example.poem5_12_25.GlobalObject;
 import com.example.poem5_12_25.R;
 import com.example.poem5_12_25.database.Database1;
 import com.example.poem5_12_25.entity.User;
+import com.example.poem5_12_25.viewmodel.ConfigViewModel;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,18 +36,14 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.bt_main_register)
     Button registerButton;
 
+    private Context context = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ViewPump.init(ViewPump.builder()
-                .addInterceptor(new CalligraphyInterceptor(
-                        new CalligraphyConfig.Builder()
-                                .setDefaultFontPath("fonts/Roboto-RobotoRegular.ttf")
-                                .setFontAttrId(R.attr.fontPath)
-                                .build()))
-                .build());
-        setContentView(R.layout.activity_main);
 
+
+        setContentView(R.layout.activity_main);
         // 如果本地数据库中有用户数据,则重新重定向到用户界面
 //        GlobalObject.submitTask(() -> {
 //            int i = Database1.getInstance(context).UserDao().deleteAllUser();
@@ -53,12 +51,25 @@ public class MainActivity extends BaseActivity {
 //            startActivity(new Intent(this, MainActivity.class));
 //            finish();
 //        });
-        List<User> users = Database1.getInstance(this).UserDao().selectAllUser();
-        System.out.println(Arrays.toString(users.toArray()));
-        if (!Database1.getInstance(this).UserDao().selectAllUser().isEmpty()) {
-            Intent intent = new Intent(this,UserActivity.class);
-            startActivity(intent);
-        }
+        GlobalObject.submitTask(() -> {
+            List<User> users = Database1.getInstance(context).UserDao().selectAllUser();
+            if (!Database1.getInstance(context).UserDao().selectAllUser().isEmpty()) {
+                Intent intent = new Intent(context,UserActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GlobalObject.submitTask(() -> {
+            List<User> users = Database1.getInstance(context).UserDao().selectAllUser();
+            if (!Database1.getInstance(context).UserDao().selectAllUser().isEmpty()) {
+                Intent intent = new Intent(context,UserActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

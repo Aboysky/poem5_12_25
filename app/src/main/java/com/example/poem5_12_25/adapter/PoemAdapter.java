@@ -18,7 +18,6 @@ import java.util.Arrays;
 
 
 // RecyclerView 的适配器
-// todo 优化日期显示
 public class PoemAdapter extends RecyclerView.Adapter<PoemAdapter.ContentHolder> {
     private static final String TAG = "PoemAdapter";
 
@@ -31,11 +30,9 @@ public class PoemAdapter extends RecyclerView.Adapter<PoemAdapter.ContentHolder>
     private OnItemClickListener mOnItemClickListener = null;
 
 
-    //define interface
     public static interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
-
 
     public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;

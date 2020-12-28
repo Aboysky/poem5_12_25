@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.example.poem5_12_25.MainApp;
 import com.example.poem5_12_25.R;
 import com.example.poem5_12_25.cache.LastPoemCache;
+import com.example.poem5_12_25.contant.ServerContant;
 import com.example.poem5_12_25.dao.UserDao;
 import com.example.poem5_12_25.database.Database1;
 import com.example.poem5_12_25.entity.Poem;
@@ -25,6 +27,8 @@ import com.example.poem5_12_25.entity.User;
 import com.example.poem5_12_25.pojo.PoemPojo;
 import com.example.poem5_12_25.utils.http.HttpRequestUtil;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,6 +46,8 @@ public class LoginActivity extends BaseActivity {
     EditText mEtLoginactivityPassword;
     @BindView(R.id.ll_loginactivity_two)
     LinearLayout mLlLoginactivityTwo;
+    @BindView(R.id.layout_login)
+    View loginPage;
 
     private Context context = this;
 
@@ -122,4 +128,19 @@ public class LoginActivity extends BaseActivity {
             }
         }
     }
+
+//    class GetImageUrl extends AsyncTask<String, Integer, Bitmap> {
+//
+//        @Override
+//        protected Bitmap doInBackground(String... strings) {
+//            Random random = new Random(1232L);
+//            int i = random.nextInt(6);
+//            return HttpRequestUtil.getHttpBitmap(ServerContant.IMAGE_URL_1);
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Bitmap bitmap) {
+//            super.onPostExecute(bitmap);
+//
+//    }
 }

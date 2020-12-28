@@ -33,5 +33,13 @@
 
         <!--The water level to the percentage of the height of the flask-->
         <attr name="water_height_percent" format="float"></attr>
+
+        <attr name="textsize" format="reference|dimension" />
+        <attr name="textsize2" format="reference|dimension" />
+        <attr name="textsize3" format="reference|dimension" />
+
+
     </declare-styleable>
+
+
 </resources>

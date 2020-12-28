@@ -14,7 +14,7 @@ public class GlobalObject {
 
     private static GlobalObject globalObject = new GlobalObject();
 
-    private static final Executor executor = Executors.newFixedThreadPool(3);
+    private static final Executor executor = Executors.newFixedThreadPool(5);
 
     private GlobalObject() {
     }

@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
  * 全局配置管理
  */
 public class GlobalConfig {
-    private static final String TAG = "ConfigManager";
+    private static final String TAG = "GlobalConfig";
 
     private Context context;
 
